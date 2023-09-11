@@ -1,0 +1,39 @@
+import jdk.internal.dynalink.linker.LinkerServices
+
+plugins {
+    id 'application'
+    id 'java'
+}
+
+group = 'org.solution'
+//version = '1.0-SNAPSHOT'
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    implementation 'com.microsoft.playwright:playwright:1.36.0'
+    implementation 'com.google.code.gson:gson:2.10.1'
+    implementation 'org.apache.commons:commons-lang3:3.12.0'
+}
+
+jar {
+    manifest {
+        attributes "Main-Class": "org.solution.solution"
+    }
+
+    from {
+        configurations.runtimeClasspath.collect { it.isDirectory() ? it : zipTree(it) }
+    }
+}
+
+application {
+//  Run this command: ./gradlew run
+    mainClassName = 'org.solution.solution'
+
+//  This is only for test generator
+//  Run this command: ./gradlew run --args="codegen https://www.cermati.com/karir"
+//    mainClass.set("com.microsoft.playwright.CLI")
+}
+
